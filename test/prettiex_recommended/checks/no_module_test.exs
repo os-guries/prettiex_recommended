@@ -1,8 +1,8 @@
 defmodule PrettiexRecommended.Checks.NoModuleTest do
   use ExUnit.Case, async: true
 
-  alias PrettiexRecommended.Checks.NoModule
   alias Prettiex.Issue
+  alias Prettiex.Runner
 
   test "returns an issue when __MODULE__ is present" do
     ast =
@@ -16,7 +16,8 @@ defmodule PrettiexRecommended.Checks.NoModuleTest do
         end
       end
 
-    assert [%Issue{}] = NoModule.run_on_module(ast)
+    assert [%Issue{}] = Runner.run(PrettiexRecommended.Checks.NoModule, ast)
+    
   end
 
   test "skip __MODULE__ aliases" do
@@ -32,7 +33,7 @@ defmodule PrettiexRecommended.Checks.NoModuleTest do
         end
       end
 
-    assert [] = NoModule.run_on_module(ast)
+    assert [] = Runner.run(PrettiexRecommended.Checks.NoModule, ast)
   end
 
   test "returns issue when both __MODULE__ usage and alias are present" do
@@ -48,6 +49,6 @@ defmodule PrettiexRecommended.Checks.NoModuleTest do
         end
       end
 
-    assert [] = NoModule.run_on_module(ast)
+    assert [] = Runner.run(PrettiexRecommended.Checks.NoModule, ast)
   end
 end
