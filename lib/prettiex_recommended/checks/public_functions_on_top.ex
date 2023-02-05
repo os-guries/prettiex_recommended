@@ -12,11 +12,14 @@ defmodule PrettiexRecommended.Checks.PublicFunctionsOnTop do
 
     definition do
       sequence do
-        pattern form defp
+        pattern do
+          form defp
+        end
 
-        pattern form def
+        pattern do
+          form def
+        end
       end
     end
   end
 end
-
